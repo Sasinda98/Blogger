@@ -1,0 +1,66 @@
+
+entity MUser {
+    username String
+    email String
+    dob Instant
+    about String
+}
+
+entity UserStatistic {
+    lastActive Instant
+    numberOfPosts Integer
+    numberOfComments Integer
+}
+
+
+entity Channel {
+    name String
+    createdAt Instant
+    modifiedAt Instant
+    lastPostAt Instant
+    isDeleted Boolean 
+}
+
+entity Post {
+    title String
+    content String
+    likes Integer
+    createdAt Instant
+    modifiedAt Instant
+    isDeleted Boolean
+    viewScope ViewScope
+}
+
+enum ViewScope {
+    PUBLIC
+    PRIVATE
+}
+
+entity Comment {
+    comment String 
+    createdAt Instant 
+    modifiedAt Instant 
+    isDeleted Boolean
+}
+
+relationship OneToOne {
+    MUser to UserStatistic
+}
+
+relationship OneToMany {
+    Post to Comment{post}
+    MUser to Channel{muser}
+    MUser to Post{muser}
+    MUser to Comment{muser}
+}
+
+/**
+ * Many to many relationship.
+ */
+relationship ManyToMany {
+    Channel{post} to Post{channel}
+}
+
+dto MUser, UserStatistic, Channel, Post, Comment with mapstruct
+
+service MUser, UserStatistic, Channel, Post, Comment with serviceClass

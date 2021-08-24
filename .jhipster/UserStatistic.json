@@ -1,0 +1,36 @@
+{
+  "name": "UserStatistic",
+  "fields": [
+    {
+      "fieldName": "lastActive",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "numberOfPosts",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "numberOfComments",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "mUser",
+      "otherEntityRelationshipName": "userStatistic",
+      "relationshipName": "mUser",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "user_statistic",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210824131817"
+}

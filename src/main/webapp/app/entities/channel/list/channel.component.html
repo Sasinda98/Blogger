@@ -1,0 +1,99 @@
+<div>
+  <h2 id="page-heading" data-cy="ChannelHeading">
+    <span>Channels</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-channel"
+        [routerLink]="['/channel/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Channel </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="channels?.length === 0">
+    <span>No channels found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="channels && channels.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Name</span></th>
+          <th scope="col"><span>Created At</span></th>
+          <th scope="col"><span>Modified At</span></th>
+          <th scope="col"><span>Last Post At</span></th>
+          <th scope="col"><span>Is Deleted</span></th>
+          <th scope="col"><span>Post</span></th>
+          <th scope="col"><span>Muser</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let channel of channels; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/channel', channel.id, 'view']">{{ channel.id }}</a>
+          </td>
+          <td>{{ channel.name }}</td>
+          <td>{{ channel.createdAt | formatMediumDatetime }}</td>
+          <td>{{ channel.modifiedAt | formatMediumDatetime }}</td>
+          <td>{{ channel.lastPostAt | formatMediumDatetime }}</td>
+          <td>{{ channel.isDeleted }}</td>
+          <td>
+            <span *ngFor="let post of channel.posts; let last = last">
+              <a class="form-control-static" [routerLink]="['/post', post.id, 'view']">{{ post.id }}</a
+              >{{ last ? '' : ', ' }}
+            </span>
+          </td>
+          <td>
+            <div *ngIf="channel.muser">
+              <a [routerLink]="['/m-user', channel.muser?.id, 'view']">{{ channel.muser?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/channel', channel.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/channel', channel.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(channel)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

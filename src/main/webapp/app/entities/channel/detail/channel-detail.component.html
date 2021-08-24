@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="channel">
+      <h2 data-cy="channelDetailsHeading"><span>Channel</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ channel.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ channel.name }}</span>
+        </dd>
+        <dt><span>Created At</span></dt>
+        <dd>
+          <span>{{ channel.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Modified At</span></dt>
+        <dd>
+          <span>{{ channel.modifiedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Last Post At</span></dt>
+        <dd>
+          <span>{{ channel.lastPostAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Is Deleted</span></dt>
+        <dd>
+          <span>{{ channel.isDeleted }}</span>
+        </dd>
+        <dt><span>Posts</span></dt>
+        <dd>
+          <span *ngFor="let posts of channel.posts; let last = last">
+            <a [routerLink]="['/post', posts?.id, 'view']">{{ posts.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span>Channel Creator</span></dt>
+        <dd>
+          <div *ngIf="channel.channelCreator">
+            <a [routerLink]="['/m-user', channel.channelCreator?.id, 'view']">{{ channel.channelCreator?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/channel', channel.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

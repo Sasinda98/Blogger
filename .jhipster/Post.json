@@ -1,0 +1,65 @@
+{
+  "name": "Post",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "likes",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "modifiedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "isDeleted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "viewScope",
+      "fieldType": "ViewScope",
+      "fieldValues": "PUBLIC,PRIVATE"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "linkedPost",
+      "relationshipName": "comment"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "mUser",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "postCreator"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "channel",
+      "otherEntityRelationshipName": "posts",
+      "relationshipName": "channels",
+      "ownerSide": false
+    }
+  ],
+  "entityTableName": "post",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210824132713"
+}

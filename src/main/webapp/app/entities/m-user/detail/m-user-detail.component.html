@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="mUser">
+      <h2 data-cy="mUserDetailsHeading"><span>M User</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ mUser.id }}</span>
+        </dd>
+        <dt><span>Username</span></dt>
+        <dd>
+          <span>{{ mUser.username }}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+          <span>{{ mUser.email }}</span>
+        </dd>
+        <dt><span>Dob</span></dt>
+        <dd>
+          <span>{{ mUser.dob | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>About</span></dt>
+        <dd>
+          <span>{{ mUser.about }}</span>
+        </dd>
+        <dt><span>User Statistic</span></dt>
+        <dd>
+          <div *ngIf="mUser.userStatistic">
+            <a [routerLink]="['/user-statistic', mUser.userStatistic?.id, 'view']">{{ mUser.userStatistic?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/m-user', mUser.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

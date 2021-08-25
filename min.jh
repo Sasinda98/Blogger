@@ -1,0 +1,27 @@
+
+entity Post {
+    title String
+    content String
+    likes Integer
+    createdAt Instant
+    modifiedAt Instant
+    isDeleted Boolean
+}
+
+entity Comment {
+    comment String 
+    createdAt Instant 
+    modifiedAt Instant 
+    isDeleted Boolean
+}
+
+
+
+relationship OneToMany {
+    Post to Comment{linkedPost}
+}
+
+
+dto Post, Comment with mapstruct
+
+service Post, Comment with serviceClass
